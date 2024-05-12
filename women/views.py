@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.defaultfilters import slugify
+from .models import Women
 
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -50,7 +51,12 @@ def about(request):
 
 
 def show_post(request, post_id):
-    return HttpResponse(f'Отаброжение статьи с id = {post_id}')
+    post = get_object_or_404(Women, pk=post_id)
+    data = {'title': post.title,
+            'menu': menu,
+            'post': post,
+            'cat_selected': 1}
+    return render(request, 'post.html', data)
 
 
 def addpage(request):
