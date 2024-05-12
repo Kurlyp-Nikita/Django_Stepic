@@ -15,7 +15,7 @@
                 {% autoescape off %}
                 <p>{{ p.content|linebreaks|truncatewords:20 }}</p>
                 {% endautoescape %}
-                <p><a href="{% url 'post' p.id %}">Читать пост</a></p>
+                <p><a href="{{ p.get_absolute_url }}">Читать пост</a></p>
                 {# forloop.last — это логическое значение, которое возвращает True, если это последняя итерация цикла. #}
                 {# Может использоваться, например, для условного скрытия разделительной линии после последнего элемента в списке. #}
                 {% if not forloop.last %}

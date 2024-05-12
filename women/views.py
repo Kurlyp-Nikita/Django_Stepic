@@ -32,6 +32,7 @@ data_db = [
 
 
 def index(request):
+    posts = Women.objects.filter(is_published=1)
     data = {'title': 'Главная страница',
             'menu': menu,
             # 'float': 28.56,
@@ -40,8 +41,8 @@ def index(request):
             # 'dict': {'key_1': 'value_1', 'key_2': 'value_2'},
             # 'obj': Myclass(10, 20),
             # 'url': slugify('The main page')
-            'posts': data_db,
-        }
+            'posts': posts,
+            }
 
     return render(request, 'index.html', context=data)
 
@@ -50,8 +51,8 @@ def about(request):
     return render(request, 'about.html', {'title': 'О сайте', 'menu': menu})
 
 
-def show_post(request, post_id):
-    post = get_object_or_404(Women, pk=post_id)
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
     data = {'title': post.title,
             'menu': menu,
             'post': post,
