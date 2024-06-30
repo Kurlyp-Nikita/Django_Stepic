@@ -12,6 +12,8 @@
             <li>
                 <h2>{{ p.title }}</h2>
                 {% autoescape off %}
+                    <p>Категория: {{ p.cat.name }}</p>
+                    <p>Дата: {{ p.time_update|date:"d-m-Y H:i:s" }}</p>
                 <p>{{ p.content|linebreaks|truncatewords:20 }}</p>
                 {% endautoescape %}
                 <p><a href="{{ p.get_absolute_url }}">Читать пост</a></p>

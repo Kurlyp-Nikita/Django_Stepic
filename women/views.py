@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.defaultfilters import slugify
-from .models import Women
-
+from .models import Women, Category
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -65,6 +64,19 @@ def addpage(request):
 
 def contact(request):
     return HttpResponse('Обратная связь')
+
+
+def show_category(request, cat_slug):
+    category = get_object_or_404(Category, slug=cat_slug)
+    posts = Women.published.filter(cat_id=category.pk)
+
+    data = {
+        'title': f'Рубрика {category.name}',
+        'manu': menu,
+        'posts': posts,
+        'cat_selected': category.pk,
+    }
+    return render(request, 'index.html', data)
 
 
 def login(request):
